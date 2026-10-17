@@ -22,9 +22,10 @@ internal sealed class OverlayForm : Form
     private readonly ContextMenuStrip _trayMenu;
     private readonly NotifyIcon _trayIcon;
 
-    private const int DotSpacing = 48;
-    private const float DotDiameter = 4;
-    private const double OverlayOpacity = 0.35;
+    private const int DotsPerAxis = 4;
+    private const float DotDiameter = 18;
+    private const double OverlayOpacity = 0.75;
+    private static readonly Color DotColor = Color.FromArgb(160, 160, 160);
     private static readonly Color TransparentColor = Color.Magenta;
 
     public OverlayForm()
@@ -123,12 +124,13 @@ internal sealed class OverlayForm : Form
     protected override void OnPaint(PaintEventArgs e)
     {
         base.OnPaint(e);
-        using var brush = new SolidBrush(Color.White);
-        var offset = DotSpacing / 2;
-        for (var y = offset; y < ClientSize.Height; y += DotSpacing)
+        using var brush = new SolidBrush(DotColor);
+        for (var row = 0; row < DotsPerAxis; row++)
         {
-            for (var x = offset; x < ClientSize.Width; x += DotSpacing)
+            var y = (row + 1) * ClientSize.Height / (DotsPerAxis + 1f) - DotDiameter / 2;
+            for (var column = 0; column < DotsPerAxis; column++)
             {
+                var x = (column + 1) * ClientSize.Width / (DotsPerAxis + 1f) - DotDiameter / 2;
                 e.Graphics.FillEllipse(brush, x, y, DotDiameter, DotDiameter);
             }
         }
