@@ -43,10 +43,12 @@ internal sealed class OverlayForm : Form
         _trayMenu = new ContextMenuStrip();
         _trayMenu.Items.Add("Show/Hide overlay", null, (_, _) => ToggleOverlay());
         _trayMenu.Items.Add("Exit Motion Anchor", null, (_, _) => Close());
+        var appIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
+            ?? throw new InvalidOperationException("Could not load the Motion Anchor application icon.");
         _trayIcon = new NotifyIcon
         {
             ContextMenuStrip = _trayMenu,
-            Icon = SystemIcons.Application,
+            Icon = appIcon,
             Text = "Motion Anchor",
             Visible = true
         };
