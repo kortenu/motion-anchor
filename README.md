@@ -2,10 +2,10 @@
 
 ![Motion Anchor app icon](Assets/MotionAnchor.svg)
 
-Motion Anchor is a lightweight, click-through Windows overlay that draws a fixed
-matrix of subtle white dots across the primary display. It stays above other
-windows, including games running in borderless windowed mode, and does not
-intercept mouse input.
+Motion Anchor is a lightweight, click-through Windows overlay that draws 16
+larger gray dots in an evenly spaced 4-by-4 grid across the primary display. It
+stays above other windows, including games running in borderless windowed mode,
+and does not intercept mouse input.
 
 ## Run
 
@@ -30,5 +30,5 @@ in `Assets\MotionAnchor.svg`.
 The overlay starts immediately on the primary display. Use **Ctrl+Alt+O** or the
 tray icon's **Show/Hide overlay** action to toggle it. Double-click the tray icon
 to toggle the overlay, or choose **Exit Motion Anchor** from its menu to quit.
-**Ctrl+Alt+Q** also exits. The dot spacing, size, and overall opacity are set
-near the top of `OverlayForm.cs`.
+**Ctrl+Alt+Q** also exits. The dot count, size, color, and opacity are set near
+the top of `OverlayForm.cs`.
