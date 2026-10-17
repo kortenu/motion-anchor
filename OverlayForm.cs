@@ -22,11 +22,12 @@ internal sealed class OverlayForm : Form
     private readonly ContextMenuStrip _trayMenu;
     private readonly NotifyIcon _trayIcon;
 
-    private const int DotsPerAxis = 4;
-    private const float DotDiameter = 18;
-    private const double OverlayOpacity = 0.75;
-    private static readonly Color DotColor = Color.FromArgb(160, 160, 160);
+    private const float DotDiameter = 16;
+    private const double OverlayOpacity = 1;
+    private static readonly Color DotColor = Color.White;
     private static readonly Color TransparentColor = Color.Magenta;
+    private static readonly float[] DotColumnPositions = [0.076f, 0.316f, 0.698f, 0.923f];
+    private static readonly float[] DotRowPositions = [0.089f, 0.370f, 0.673f, 0.930f];
 
     public OverlayForm()
     {
@@ -125,12 +126,12 @@ internal sealed class OverlayForm : Form
     {
         base.OnPaint(e);
         using var brush = new SolidBrush(DotColor);
-        for (var row = 0; row < DotsPerAxis; row++)
+        foreach (var rowPosition in DotRowPositions)
         {
-            var y = (row + 1) * ClientSize.Height / (DotsPerAxis + 1f) - DotDiameter / 2;
-            for (var column = 0; column < DotsPerAxis; column++)
+            var y = rowPosition * ClientSize.Height - DotDiameter / 2;
+            foreach (var columnPosition in DotColumnPositions)
             {
-                var x = (column + 1) * ClientSize.Width / (DotsPerAxis + 1f) - DotDiameter / 2;
+                var x = columnPosition * ClientSize.Width - DotDiameter / 2;
                 e.Graphics.FillEllipse(brush, x, y, DotDiameter, DotDiameter);
             }
         }
