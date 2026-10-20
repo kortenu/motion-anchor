@@ -21,6 +21,7 @@ internal sealed class OverlayForm : Form
     private static readonly IntPtr HwndTopmost = new(-1);
     private readonly ContextMenuStrip _trayMenu;
     private readonly NotifyIcon _trayIcon;
+    private readonly System.Windows.Forms.Timer _riotProcessTimer;
 
     private const float DotDiameter = 16;
     private const double OverlayOpacity = 1;
@@ -55,10 +56,21 @@ internal sealed class OverlayForm : Form
             Visible = true
         };
         _trayIcon.DoubleClick += (_, _) => ToggleOverlay();
+
+        _riotProcessTimer = new System.Windows.Forms.Timer { Interval = 500 };
+        _riotProcessTimer.Tick += (_, _) =>
+        {
+            if (RiotProcessGuard.IsRiotClientRunning())
+            {
+                Close();
+            }
+        };
     }
 
     protected override void OnFormClosed(FormClosedEventArgs e)
     {
+        _riotProcessTimer.Stop();
+        _riotProcessTimer.Dispose();
         _trayIcon.Visible = false;
         _trayIcon.Dispose();
         _trayMenu.Dispose();
@@ -81,6 +93,12 @@ internal sealed class OverlayForm : Form
     {
         base.OnShown(e);
 
+        if (RiotProcessGuard.IsRiotClientRunning())
+        {
+            Close();
+            return;
+        }
+
         if (!SetWindowPos(
                 Handle,
                 HwndTopmost,
@@ -92,6 +110,8 @@ internal sealed class OverlayForm : Form
         {
             throw new Win32Exception(Marshal.GetLastWin32Error(), "Could not keep the overlay above other windows.");
         }
+
+        _riotProcessTimer.Start();
     }
 
     protected override void OnHandleCreated(EventArgs e)
