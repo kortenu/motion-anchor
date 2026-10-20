@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "motion-anchor",
+  "version": "${version}",
+  "name": "Motion Anchor",
+  "description": "A fixed 4-by-4 white dot matrix rendered in Minecraft's HUD.",
+  "authors": [
+    "kortenu"
+  ],
+  "icon": "assets/motion-anchor/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.kortenu.motionanchor.MotionAnchorClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~26.3",
+    "fabric-api": ">=0.164.0+26.3"
+  }
+}

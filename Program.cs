@@ -6,6 +6,11 @@ internal static class Program
     private static void Main()
     {
         ApplicationConfiguration.Initialize();
+        if (RiotProcessGuard.IsRiotClientRunning())
+        {
+            return;
+        }
+
         Application.Run(new OverlayForm());
     }
 }

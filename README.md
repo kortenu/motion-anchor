@@ -1,35 +1,32 @@
 # Motion Anchor
 
-![Motion Anchor app icon](Assets/MotionAnchor.svg)
+![Motion Anchor icon](Assets/MotionAnchor.svg)
 
-Motion Anchor is a lightweight, click-through Windows overlay that draws 16
-white dots on the primary display, positioned and sized to resemble the
-Minecraft reference. Their positions scale with the display resolution. The
-overlay stays above other windows, including games running in borderless
-windowed mode, and does not intercept mouse input.
+Motion Anchor is a client-side Fabric mod for Minecraft 26.3. It draws 16
+white dots in a fixed, reference-matched layout directly in the game's HUD.
+Their positions scale with Minecraft's GUI resolution and do not intercept
+input. Press **O** (configurable in Minecraft's Controls settings) to toggle
+them.
 
-## Run
+## Build and install
 
-Install the .NET 8 SDK, then run:
+1. Build the mod from source with Java 25 by running `.\gradlew.bat build`.
+2. Install Fabric Loader for Minecraft 26.3 and Fabric API in the same profile.
+3. Copy `build\libs\motion-anchor-1.0.0.jar` into that profile's `mods` folder.
+4. Launch the Fabric profile.
 
-```powershell
-dotnet run --project .\MotionAnchor.csproj
-```
+The mod is client-only and does not need to be installed on a server. It is
+Modrinth-compatible, but has not yet been published as a Modrinth project.
+The built JAR is written to `build\libs\motion-anchor-1.0.0.jar`.
 
-To publish a standalone Windows executable:
+## Riot Vanguard
 
-```powershell
-dotnet publish .\MotionAnchor.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
-```
+Unlike the legacy Windows overlay, this mod draws only inside Minecraft and
+does not create a separate always-on-top desktop window. It cannot guarantee
+Riot Vanguard compatibility or prevent Vanguard from flagging other software.
+Close Minecraft before launching League of Legends if Vanguard has raised a
+warning, and contact Riot Support about Vanguard alerts.
 
-The executable is written to
-`bin\Release\net8.0-windows\win-x64\publish\MotionAnchor.exe`.
-
-The application and tray icon use the custom gray anchor and green waves artwork
-in `Assets\MotionAnchor.svg`.
-
-The overlay starts immediately on the primary display. Use **Ctrl+Alt+O** or the
-tray icon's **Show/Hide overlay** action to toggle it. Double-click the tray icon
-to toggle the overlay, or choose **Exit Motion Anchor** from its menu to quit.
-**Ctrl+Alt+Q** also exits. Dot positions, size, color, and opacity are set near
-the top of `OverlayForm.cs`.
+The previous Windows overlay source is retained in `MotionAnchor.csproj`,
+`OverlayForm.cs`, and related files; do not run that overlay alongside Riot
+games.
