@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
 public final class MotionAnchorClient implements ClientModInitializer {
-    private static final int DOT_SIZE = 8;
+    private static final int DOT_SIZE = 12;
     private static final int DOT_TEXTURE_SIZE = 32;
     private static final Identifier DOT_TEXTURE =
             Identifier.fromNamespaceAndPath("motion-anchor", "textures/gui/dot.png");
@@ -66,6 +66,8 @@ public final class MotionAnchorClient implements ClientModInitializer {
                         0,
                         DOT_SIZE,
                         DOT_SIZE,
+                        DOT_TEXTURE_SIZE,
+                        DOT_TEXTURE_SIZE,
                         DOT_TEXTURE_SIZE,
                         DOT_TEXTURE_SIZE
                 );
